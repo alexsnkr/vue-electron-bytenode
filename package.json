@@ -6,13 +6,17 @@
     "serve": "vue-cli-service electron:serve",
     "lint": "vue-cli-service lint",
     "build": "vue-cli-service electron:build",
-    "build:dir": "vue-cli-service electron:build --dir",
-    "pack": "vue-cli-service electron:build --skipBundle",
+    "pack": "vue-cli-service electron:build --dir",
+    "dist": "vue-cli-service electron:build --skipBundle",
     "postinstall": "electron-builder install-app-deps",
-    "postuninstall": "electron-builder install-app-deps"
+    "postuninstall": "electron-builder install-app-deps",
+    "electron:generate-icons": "electron-icon-builder --input=./public/icon.png --output=build --flatten",
+    "compile:win": "yarn run pack && \"./node_modules/electron/dist/electron.exe\" scripts/bytenode.js && yarn run dist",
+    "compile:mac": "yarn run pack && ./node_modules/electron/dist/Electron.app/Contents/MacOS/Electron scripts/bytenode.js && yarn run dist"
   },
   "main": "background.js",
   "dependencies": {
+    "asar": "^3.0.3",
     "bytenode": "^1.1.6",
     "core-js": "^3.6.5",
     "vue": "^2.6.11",
